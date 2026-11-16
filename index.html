@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>何柏儀 Brian Ho | LLM Wiki 個人簡報庫</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B1120;
+      --card: #151F32;
+      --accent: #38BDF8;
+      --green: #10B981;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --border: rgba(56, 189, 248, 0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem 1.5rem;
+      background-image: radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08), transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.06), transparent 40%);
+    }
+    .container { max-width: 960px; width: 100%; }
+    header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+    .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 1.2rem; }
+    .motto {
+      border-left: 3px solid var(--green);
+      padding-left: 1rem;
+      color: #E2E8F0;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .metric-box {
+      background: rgba(11, 17, 32, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    .metric-val { font-size: 1.4rem; font-weight: 700; color: var(--green); }
+    .metric-label { font-size: 0.85rem; color: var(--muted); }
+    h2 { font-size: 1.35rem; margin-bottom: 1.2rem; color: var(--accent); }
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .deck-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .deck-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .deck-tag {
+      font-size: 0.8rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .deck-card h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+    .deck-card p { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: var(--accent);
+      color: #0B1120;
+      font-weight: 700;
+      padding: 0.65rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">LLM Wiki × AGENTS.md 個人知識庫</span>
+      <h1>何柏儀 Brian Ho</h1>
+      <p class="subtitle">國立臺北科技大學 電資學士班－電子工程系</p>
+      <p class="motto">「做人做事不只要做好做完，更要做到美」</p>
+      <div class="metrics">
+        <div class="metric-box">
+          <div class="metric-val">96.0 / 95.1</div>
+          <div class="metric-label">大三上下學期平均（系排第4 / 第3）</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">TSMC 16nm</div>
+          <div class="metric-label">降壓轉換器專題組長（效率 87.25%）</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">鴻海 Powerteam</div>
+          <div class="metric-label">電源 IC 驗證實習（獨立負責專案）</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">義消 × EMT-1</div>
+          <div class="metric-label">花蓮救災行動與高壓團隊協作</div>
+        </div>
+      </div>
+    </header>
+
+    <h2>📂 已生成之自我介紹簡報（由 wiki/ 自動萃取）</h2>
+    <div class="deck-grid">
+      <a href="slides/general.html" class="deck-card">
+        <div>
+          <div class="deck-tag">4 頁精華版｜通用／綜合展示</div>
+          <h3>全方位個人簡介簡報</h3>
+          <p>完整涵蓋學業成長曲線、TSMC 16nm 專題成果、鴻海實習經歷與義消跨界特質。</p>
+        </div>
+        <span class="btn">開始播放簡報 →</span>
+      </a>
+    </div>
+
+    <footer>
+      Powered by AGENTS.md &amp; Structured Markdown Wiki · Contact: a0968962330@gmail.com
+    </footer>
+  </div>
+</body>
+</html>

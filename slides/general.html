@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自我介紹簡報 | 何柏儀 Brian Ho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B1120;
+      --card: #151F32;
+      --accent: #38BDF8;
+      --green: #10B981;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --border: rgba(56, 189, 248, 0.22);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      overflow: hidden;
+    }
+    .deck {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    .slide {
+      height: 100vh;
+      width: 100vw;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 4rem;
+      position: relative;
+      background-image: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.07), transparent 45%);
+    }
+    .slide-inner {
+      max-width: 1080px;
+      width: 100%;
+    }
+    .kicker {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1.2; margin-bottom: 0.8rem; }
+    h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin-bottom: 1.5rem; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 720px; margin-bottom: 1.8rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+    .tag {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .card h3 { font-size: 1.15rem; color: var(--accent); margin-bottom: 0.8rem; }
+    .card ul { list-style: none; }
+    .card li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.95rem;
+      color: #E2E8F0;
+    }
+    .card li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: bold;
+    }
+    .highlight-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 0.25rem;
+    }
+    .stat-bar {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-pill {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--green);
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    /* 固定 UI 控制列 */
+    .home-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      z-index: 100;
+      background: rgba(21, 31, 50, 0.8);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .home-link:hover { color: var(--accent); }
+    .page-indicator {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 2rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+      z-index: 100;
+    }
+    .nav-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 100;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.35);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot.active {
+      background: var(--accent);
+      transform: scale(1.35);
+    }
+    @media (max-width: 820px) {
+      .slide { padding: 2rem 1.5rem; overflow-y: auto; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="home-link">← 返回知識庫首頁</a>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="page-indicator" id="pageIndicator">1 / 4</div>
+
+  <main class="deck" id="deck">
+    <!-- 第 1 頁：封面與核心定位 -->
+    <section class="slide">
+      <div class="slide-inner">
+        <div class="kicker">SELF INTRODUCTION · 01</div>
+        <h1>何柏儀 <span style="color: var(--accent);">Brian Ho</span></h1>
+        <p class="lead">國立臺北科技大學 電資學士班－電子工程系<br>「做人做事不只要做好做完，更要做到美」</p>
+        <div class="tag-row">
+          <span class="tag">#類比與電源管理 IC</span>
+          <span class="tag">#TSMC 16nm 專題組長</span>
+          <span class="tag">#鴻海集團 Powerteam 實習</span>
+          <span class="tag">#訊號處理 × 生醫聲學感測</span>
+          <span class="tag">#義勇消防隊員 × EMT-1</span>
+        </div>
+        <div class="card" style="max-width: 780px;">
+          <p style="color: #CBD5E1; font-size: 0.98rem;">
+            從國高中全國自走車競賽冠軍出發，結合大學階段的先進製程 IC 設計、鴻海大電流電源驗證實習，以及第一線義消救災經歷，培養出兼具<strong>電路理論深度</strong>、<strong>系統級 Debug 思維</strong>與<strong>高壓團隊領導力</strong>的研發特質。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 2 頁：學業表現與技術棧 -->
+    <section class="slide">
+      <div class="slide-inner">
+        <div class="kicker">ACADEMICS &amp; TECHNICAL STACK · 02</div>
+        <h2>強勢學業成長曲線與跨領域技能</h2>
+        <div class="grid-3" style="margin-bottom: 1.5rem;">
+          <div class="card">
+            <div class="highlight-num">96.0 → 95.1</div>
+            <p style="font-size: 0.9rem; color: var(--muted);">大三上下學期平均成績，從大一第 27 名躍升至<strong>系排第 4 名、第 3 名</strong>（連獲三次三育獎）。</p>
+          </div>
+          <div class="card">
+            <div class="highlight-num">98 / 96 / 94</div>
+            <p style="font-size: 0.9rem; color: var(--muted);">核心高分：數位訊號處理(98)、通訊原理(98)、VLSI導論(98)、電力電子IC(96)、電磁學(94)。</p>
+          </div>
+          <div class="card">
+            <div class="highlight-num">全棧軟硬體</div>
+            <p style="font-size: 0.9rem; color: var(--muted);">橫跨類比 IC 佈局驗證、高電流電源板級量測、STM32 嵌入式與 OpenCV 演算法。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>IC 設計與 EDA 工具</h3>
+            <ul>
+              <li>Cadence Virtuoso / HSPICE</li>
+              <li>Calibre DRC / LVS / PEX</li>
+              <li>Star-RC 寄生參數萃取</li>
+              <li>SIMPLIS 電源系統建模</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>量測儀器與產業軟體</h3>
+            <ul>
+              <li>示波器 / 電子負載 / 波德圖儀</li>
+              <li>Cadence Allegro PCB 檢視</li>
+              <li>Chroma 自動化測試系統</li>
+              <li>Renesas Power Navigator</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>程式語言與嵌入式</h3>
+            <ul>
+              <li>C / C++、Python</li>
+              <li>ARM Cortex-M3 (STM32 / Keil-C)</li>
+              <li>OpenCV 影像辨識與濾波</li>
+              <li>Arduino 感測器控制整合</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 3 頁：核心研發與實務歷練 -->
+    <section class="slide">
+      <div class="slide-inner">
+        <div class="kicker">R&amp;D PROJECT &amp; INTERNSHIP · 03</div>
+        <h2>晶片研發專題 × 產業實戰驗證</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>畢業專題組長｜TSMC 16nm 降壓轉換器</h3>
+            <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 0.8rem;">
+              題目：使用新型 DCR 電流感測之磁滯混合電流降壓轉換器
+            </p>
+            <ul>
+              <li>將 0.18µm 架構移植改良至 <strong>TSMC 16nm 先進製程</strong>，改採 Type-II 補償器縮減面積。</li>
+              <li>主導 PowerMOS、Driver 設計與 Layout 寄生優化（密集 Contact、135°折角、雙重 Guard Rings）。</li>
+              <li>帶領團隊排除後模擬延遲問題，在 PVT Corner 下驗證系統強健性。</li>
+            </ul>
+            <div class="stat-bar">
+              <span class="stat-pill">漣波 1.32 mV</span>
+              <span class="stat-pill">效率 87.25%</span>
+              <span class="stat-pill">暫態 2.69~3.83µs</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>產業實習｜鴻海集團鴻運科 Powerteam</h3>
+            <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 0.8rem;">
+              職位：電源測試與驗證實習工程師（大三升大四暑假）
+            </p>
+            <ul>
+              <li>負責 POL 負載點電源轉換 IC 與 eFuse 電子保險絲完整測試驗證。</li>
+              <li>參與 <strong>500A 大電流負載專案</strong>，精確量測時序邏輯、保護機制與迴路波德圖。</li>
+              <li>快速通過單人獨立操作實作考核，後期<strong>獨當一面完成客戶專案</strong>。</li>
+              <li>建立條理化「Debug 思維」，主動協助團隊成員排查測試異常。</li>
+            </ul>
+            <div class="stat-bar">
+              <span class="stat-pill">500A 專案實戰</span>
+              <span class="stat-pill">獨立負責客戶案</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 4 頁：跨域特質與未來願景 -->
+    <section class="slide">
+      <div class="slide-inner">
+        <div class="kicker">LEADERSHIP, SERVICE &amp; VISION · 04</div>
+        <h2>跨界服務韌性與未來研究展望</h2>
+        <div class="grid-2" style="margin-bottom: 1.5rem;">
+          <div class="card">
+            <h3>港務義消 × 第一線救災歷練</h3>
+            <ul>
+              <li>擔任內政部消防署<strong>蘇澳港義勇消防隊員</strong>，熟練高空垂降與緊急救護 SOP。</li>
+              <li><strong>花蓮堰塞湖事件</strong>親赴災區第一線協助在地原住民重建家園。</li>
+              <li>將火場救護「臨危不亂、精準溝通」的心理素質轉化為工程研發抗壓力。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>多元專業證照與跨域延伸</h3>
+            <ul>
+              <li><strong>初級救護技術員（EMT-1）</strong>：啟發「生醫聲學 AI 與急重症預警」研究構想。</li>
+              <li><strong>國際電磁能力認證（初級通過）</strong>：奠定高頻射頻與電波理論基礎。</li>
+              <li><strong>PADI 開放水域潛水員</strong> &amp; <strong>JCI 國際青商志工訓練結業</strong>。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <strong style="color: var(--accent); font-size: 1.05rem;">未來目標：兼具理論深度與實作能力的前瞻工程研發學者</strong>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem;">
+              深耕先進電源管理 IC、高頻射頻電路或智慧訊號感測領域，為學界與半導體產業創造實質貢獻。
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.85rem; color: var(--muted);">聯絡信箱</div>
+            <a href="mailto:a0968962330@gmail.com" style="color: var(--green); font-weight: 700; text-decoration: none;">
+              a0968962330@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const deck = document.getElementById('deck');
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('pageIndicator');
+    const dotsContainer = document.getElementById('navDots');
+    let currentIndex = 0;
+
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (idx === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goToSlide(idx));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      currentIndex = index;
+      slides[index].scrollIntoView({ behavior: 'smooth' });
+      updateUI();
+    }
+
+    function updateUI() {
+      indicator.textContent = `${currentIndex + 1} / ${slides.length}`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+    }
+
+    deck.addEventListener('scroll', () => {
+      const newIndex = Math.round(deck.scrollTop / window.innerHeight);
+      if (newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
+        currentIndex = newIndex;
+        updateUI();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        goToSlide(currentIndex + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        goToSlide(currentIndex - 1);
+      }
+    });
+  </script>
+</body>
+</html>
